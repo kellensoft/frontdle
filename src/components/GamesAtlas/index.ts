@@ -1,0 +1,1 @@
+export { GamesAtlas } from './GamesAtlas';

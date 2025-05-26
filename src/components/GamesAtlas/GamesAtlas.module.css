@@ -1,0 +1,6 @@
+.card {
+  min-width: 25rem;
+  border-radius: 0.9rem;
+  border-width: 0.3rem;
+  border-style: solid;
+}

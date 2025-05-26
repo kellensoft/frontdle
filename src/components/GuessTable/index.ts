@@ -1,0 +1,1 @@
+export { GuessTable } from './GuessTable';
