@@ -21,15 +21,21 @@ import { RootState } from '../../universal/store';
 import styles from './Header.module.css';
 
 export const Header: React.FC = () => {
-  const title = useSelector((state: RootState) => state.settings.title);
+  const title = useSelector((state: RootState) => state.daily.name);
 
   return (
     <IonCol>
       <IonRow className="ion-justify-content-center">
         <IonButtons className={`${styles.header} ion-align-items-bottom`}>
-          <IonButton className={styles.button}><IonIcon icon={settingsOutline} /></IonButton>
-          <IonText className={styles.logo}>{title || 'Loading...'}</IonText>
-          <IonButton className={styles.button}><IonIcon icon={languageOutline} /></IonButton>
+          <IonButton className={styles.button}>
+            <IonIcon icon={settingsOutline} />
+          </IonButton>
+          <IonText className={styles.logo}>
+            {title || 'Loading...'}
+          </IonText>
+          <IonButton className={styles.button}>
+            <IonIcon icon={languageOutline} />
+          </IonButton>
         </IonButtons>
       </IonRow>
       <IonRow className="ion-justify-content-center">

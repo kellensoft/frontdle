@@ -7,9 +7,29 @@
 .button {
   padding: 0 0.25rem;
   font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.button:hover {
+  transform: scale(1.1);
+  --background-hover: transparent;
+  --background-focused: transparent;
+  --background-activated: transparent;
+  --background: transparent;
+  background-color: transparent !important;
+}
+
+ion-row:first-of-type .button:first-of-type:hover {
+  transform: rotate(15deg);
 }
 
 .logo {
-  font-family: 'Pokemon Solid', sans-serif;
+  font-family: 'Lobster Bold', cursive;
   font-size: 3.5rem;
+  transition: transform 0.2s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+  cursor: pointer;
 }

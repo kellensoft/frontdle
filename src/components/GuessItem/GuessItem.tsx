@@ -12,7 +12,7 @@ import {
 
 import styles from './GuessItem.module.css';
 
-import { Attribute } from '../../universal/types/guess';
+import { Attribute } from '../../universal/types';
 
 export const GuessItem: React.FC<{  
   attribute: Attribute; 

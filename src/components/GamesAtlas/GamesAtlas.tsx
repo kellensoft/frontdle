@@ -1,6 +1,7 @@
 import React from 'react';
 import { 
     IonRow,
+    IonCol,
     IonText,
     IonCard,
     IonCardHeader,
@@ -15,7 +16,11 @@ import { RootState } from '../../universal/store';
 import styles from './GamesAtlas.module.css';
 
 export const GamesAtlas: React.FC = () => {
-  const games = useSelector((state: RootState) => state.settings.games);
+  const games = useSelector((state: RootState) => state.daily.games);
+
+  const handleClick = (game: string) => {
+    window.location.href = `/${game.toLowerCase()}`;
+  };
 
   return (
     <IonRow className="ion-padding ion-justify-content-center">
@@ -29,11 +34,17 @@ export const GamesAtlas: React.FC = () => {
           )}
         </IonCardHeader>
 
-        <IonCardContent className="game-list">
+        <IonCardContent className={styles.gameList}>
           {games.map((game, index) => (
-            <IonButton key={index} fill="clear" className="game-button">
-              <img src={game.icon} alt={game.name[0].toUpperCase()} />
-              <IonText className="game-name">{game.name}</IonText>
+            <IonButton key={index} fill="clear" className={styles.gameButton} onClick={() => handleClick(game.name)}>
+              <IonCol className="ion-padding ion-align-content-center ion-justify-content-center">
+                <IonRow className="ion-justify-content-center">
+                  <img className={styles.gameIcon} src={game.icon} alt={game.name[0].toUpperCase()} width={32} height={32}/>
+                </IonRow>
+                <IonRow className="ion-padding ion-justify-content-center">
+                  <IonText className={styles.gameName}>{game.name}</IonText>
+                </IonRow>
+              </IonCol>
             </IonButton>
           ))}
         </IonCardContent>

@@ -1,7 +1,7 @@
 import React from 'react';
-import { IonApp, setupIonicReact, IonPage, IonContent } from '@ionic/react';
-import { useSelector } from 'react-redux';
-import type { RootState } from './universal/store';
+import { IonApp, setupIonicReact, IonRouterOutlet } from '@ionic/react';
+import { IonReactRouter } from '@ionic/react-router';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -33,42 +33,28 @@ import '@ionic/react/css/palettes/dark.system.css';
 /* Theme variables */
 import './theme/variables.css';
 
-import { Header } from './components/Header';
-import { GameInfo } from './components/GameInfo';
-import { Spacer } from './components/Spacer';
-import { GuessTable } from './components/GuessTable';
-import { ExtraData } from './components/ExtraData';
-import { Footer } from './components/Footer';
-
 import './App.css';
+
+import { Home } from './pages/Home';
+import { Game } from './pages/Game';
 
 setupIonicReact();
 
 const App: React.FC = () => {
 
-  const bgUrl = useSelector((state: RootState) => state.settings.bgUrl);
-  const fgColor = useSelector((state: RootState) => state.settings.fgColor);
-  const borderColor = useSelector((state: RootState) => state.settings.borderColor);
-  const textColor = useSelector((state: RootState) => state.settings.textColor);
-
-  document.body.style.setProperty('--ion-color-bg', bgUrl ? `url(${bgUrl})` : 'var(--ion-color-primary)');
-  document.body.style.setProperty('--ion-color-fg', fgColor || '#3d3d3d');
-  document.body.style.setProperty('--ion-color-border', borderColor || '#2b2b2b');
-  document.body.style.setProperty('--ion-color-text', textColor || '#d6d6d6');
-
   return (
     <IonApp>
-      <IonPage>
-        <IonContent fullscreen>
-          <Header />
-          <GameInfo />
-          <Spacer />
-          <GuessTable />
-          <Spacer />
-          <ExtraData />
-          <Footer />
-        </IonContent>
-      </IonPage>
+      <IonReactRouter>
+        <IonRouterOutlet>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/:game" component={Game} />
+            <Route path="*">
+              <Redirect to="/" />
+            </Route>
+          </Switch>
+        </IonRouterOutlet>
+      </IonReactRouter>
     </IonApp>
   );
 };

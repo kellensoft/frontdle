@@ -6,16 +6,16 @@ import {
 import { useSelector } from 'react-redux';
 import { RootState } from '../../universal/store';
 
-import styles from './PreviousAnswer.module.css';
+import styles from './YesterdaysAnswer.module.css';
 
-export const PreviousAnswer: React.FC = () => {
-  const yesterday = useSelector((state: RootState) => state.daily.yesterday);
+export const YesterdaysAnswer: React.FC = () => {
+  const yesterdaysAnswer = useSelector((state: RootState) => state.daily.yesterdaysAnswer);
 
   return (
     <IonRow className="ion-padding ion-justify-content-center">
       <IonText className={`ion-text-center ${styles.yesterdayText}`}>
         Yesterday's answer was <br />
-        <span className={styles.yesterday}>{yesterday || "Loading..."}</span>
+        <span className={styles.yesterday}>{yesterdaysAnswer || "Loading..."}</span>
       </IonText>
     </IonRow>
   );

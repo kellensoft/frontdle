@@ -4,3 +4,9 @@
   border-width: 0.3rem;
   border-style: solid;
 }
+
+.gameIcon {
+  width: 32px;
+  height: auto;
+  border-radius: 50%;
+}

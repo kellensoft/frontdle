@@ -8,7 +8,7 @@ import {
   IonIcon 
 } from '@ionic/react';
 import { 
-  closeCircleOutline, 
+  planetOutline, 
   informationCircleOutline, 
   heartOutline 
 } from 'ionicons/icons';
@@ -16,13 +16,23 @@ import {
 import styles from './Footer.module.css';
 
 export const Footer: React.FC = () => {
+  const aboutUrl = import.meta.env.VITE_APP_ABOUT_URL || '';
+  const supportUrl = import.meta.env.VITE_APP_SUPPORT_URL || '';
+  const privacyUrl = import.meta.env.VITE_APP_PRIVACY_URL || '';
+
   return (
     <IonCol>
       <IonRow className="ion-padding ion-justify-content-center">
         <IonButtons className={styles.footerIcons}>
-          <IonButton className={styles.button}><IonIcon icon={closeCircleOutline} /></IonButton>
-          <IonButton className={styles.button}><IonIcon icon={informationCircleOutline} /></IonButton>
-          <IonButton className={styles.button}><IonIcon icon={heartOutline} /></IonButton>
+          <IonButton className={styles.button} onClick={() => window.location.href = '/'}>
+            <IonIcon icon={planetOutline} />
+            </IonButton>
+          <IonButton className={styles.button} onClick={() => window.location.href = aboutUrl}>
+            <IonIcon icon={informationCircleOutline} />
+            </IonButton>
+          <IonButton className={styles.button} onClick={() => window.location.href = supportUrl}>
+            <IonIcon icon={heartOutline} />
+            </IonButton>
         </IonButtons>
       </IonRow>
       <IonRow className="ion-justify-content-center">
@@ -34,7 +44,7 @@ export const Footer: React.FC = () => {
       </IonRow>
       <IonRow className="ion-justify-content-center">
         <IonText className={`${styles.footerPrivacy} ion-text-center`}>
-          <a href="/privacy">Privacy Policy</a>
+          <a href={privacyUrl}>Privacy Policy</a>
         </IonText>
       </IonRow>
     </IonCol>

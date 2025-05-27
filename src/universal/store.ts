@@ -21,11 +21,11 @@ export const rootReducer = combineReducers({
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-export async function makeStore() {
+export async function makeStore(game: string) {
   const storageEngine = await getPersistStorage();
 
   const persistConfig = {
-    key: 'root',
+    key: `root-${game}`, 
     version: 1,
     storage: storageEngine,
     whitelist: ['settings', 'daily'], 
@@ -52,5 +52,11 @@ export type AppDispatch = ReturnType<typeof makeStore> extends Promise<infer R>
     ? S extends { dispatch: infer D }
       ? D
       : never
+    : never
+  : never;
+
+export type AppStore = ReturnType<typeof makeStore> extends Promise<infer R>
+  ? R extends { store: infer S }
+    ? S
     : never
   : never;

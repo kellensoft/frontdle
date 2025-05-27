@@ -26,11 +26,11 @@ import { ClueItem } from '../ClueItem';
 import styles from './GameInfo.module.css';
 
 export const GameInfo: React.FC = () => {
-  const header = useSelector((state: RootState) => state.settings.header);
-  const body = useSelector((state: RootState) => state.settings.body);
-  const placeholder = useSelector((state: RootState) => state.settings.placeholder);
+  const header = useSelector((state: RootState) => state.daily.header);
+  const body = useSelector((state: RootState) => state.daily.body);
+  const placeholder = useSelector((state: RootState) => state.daily.placeholder);
 
-  const clueTypes = useSelector((state: RootState) => state.settings.clueTypes);
+  const clueTypes = useSelector((state: RootState) => state.daily.clueTypes);
   const clues = useSelector((state: RootState) => state.daily.clues);
   const icons = [removeOutline, reorderTwoOutline, reorderThreeOutline];
   const numberOfClues = Math.min(clues.length, clueTypes.length, icons.length);

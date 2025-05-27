@@ -6,7 +6,7 @@ import {
     IonIcon,
     IonText
 } from '@ionic/react';
-import { ClueType } from '../../universal/types/clueType';
+import { ClueType } from '../../universal/types';
 
 import styles from './ClueItem.module.css';
 

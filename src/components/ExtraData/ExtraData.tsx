@@ -1,7 +1,7 @@
 import React from 'react';
 import { IonCol } from '@ionic/react';
 
-import { PreviousAnswer } from '../PreviousAnswer';
+import { YesterdaysAnswer } from '../YesterdaysAnswer';
 import { GamesAtlas } from '../GamesAtlas';
 
 //import styles from './ExtraData.module.css';
@@ -9,7 +9,7 @@ import { GamesAtlas } from '../GamesAtlas';
 export const ExtraData: React.FC = () => {
   return (
     <IonCol>
-      <PreviousAnswer />
+      <YesterdaysAnswer />
       <GamesAtlas />
     </IonCol>
   );

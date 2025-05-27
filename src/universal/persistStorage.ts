@@ -1,5 +1,5 @@
 import { initHybridStorage } from './storage';
-import type { UnifiedStorage } from './types/unifiedStorage';
+import type { UnifiedStorage } from './types';
 
 let adapter: UnifiedStorage | null = null;
 

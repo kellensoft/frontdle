@@ -1,7 +1,7 @@
 import { Capacitor } from '@capacitor/core';
 import localforage from 'localforage';
 import { Storage } from '@ionic/storage';
-import { UnifiedStorage } from './types/unifiedStorage';
+import { UnifiedStorage } from './types';
 
 export async function initHybridStorage(): Promise<UnifiedStorage> {
   const isNative = Capacitor.isNativePlatform();

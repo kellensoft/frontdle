@@ -3,7 +3,7 @@ import {
     IonRow 
 } from '@ionic/react';
 
-import { Attribute } from '../../universal/types/guess';
+import { Attribute } from '../../universal/types';
 
 import { GuessItem } from '../GuessItem';
 

@@ -1,5 +1,15 @@
 .button {
   font-size: 2.2rem;
+  transition: transform 0.2s ease;
+}
+
+.button:hover {
+  transform: scale(1.1);
+  --background-hover: transparent;
+  --background-focused: transparent;
+  --background-activated: transparent;
+  --background: transparent;
+  background-color: transparent !important;
 }
 
 .footerIcons, 
