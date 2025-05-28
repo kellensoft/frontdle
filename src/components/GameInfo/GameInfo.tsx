@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { 
     IonCol,
     IonRow,
@@ -18,6 +19,8 @@ import {
     reorderThreeOutline, 
     chevronForwardOutline 
 } from 'ionicons/icons';
+import { useLazyQuery } from '@apollo/client';
+import { GET_AUTOCOMPLETE } from '../../graphql/queries';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../universal/store';
 
@@ -36,6 +39,18 @@ export const GameInfo: React.FC = () => {
   const numberOfClues = Math.min(clues.length, clueTypes.length, icons.length);
   
   const tries = useSelector((state: RootState) => state.daily.guesses.length);
+
+  const [input, setInput] = useState('');
+  const [results, setResults] = useState([]);
+
+  const { game } = useParams<{ game: string }>();
+
+  const [fetchAutocomplete] = useLazyQuery(GET_AUTOCOMPLETE, {
+    onCompleted: (data) => {
+      setResults(data.autocomplete || []);
+      console.log("data: ", data);
+    },
+  });
 
   return (
     <IonCol>
@@ -60,7 +75,20 @@ export const GameInfo: React.FC = () => {
         <IonCard className={styles.searchBox}>
           <IonRow className="ion-padding-start">
             <IonButtons>
-              <IonInput placeholder={placeholder || 'Loading...'} />
+              <IonInput 
+                placeholder={placeholder || 'Loading...'} 
+                value={input} 
+                onIonInput={(e) => {
+                  const value = e.detail.value || '';
+                  setInput(value);
+                  if (value.length > 0) {
+                    fetchAutocomplete({ variables: { game, search: value } });
+                  } else {
+                    setResults([]);
+                  }
+                }} 
+                clearInput
+              />
               <IonButton className={styles.button}><IonIcon icon={chevronForwardOutline} /></IonButton>
             </IonButtons>
           </IonRow>
