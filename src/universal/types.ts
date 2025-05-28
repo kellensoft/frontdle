@@ -21,6 +21,11 @@ export interface Games {
   icon: string;
 }
 
+export interface AutocompleteItem {
+  name: string;
+  image: string;
+}
+
 export interface ClueType {
   name: string;
   description: string;

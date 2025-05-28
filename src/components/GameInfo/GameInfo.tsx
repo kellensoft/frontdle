@@ -11,7 +11,11 @@ import {
     IonButtons,
     IonButton,
     IonIcon,
-    IonInput
+    IonInput,
+    IonList,
+    IonItem,
+    IonText,
+    IonThumbnail
 } from '@ionic/react';
 import { 
     removeOutline, 
@@ -23,6 +27,8 @@ import { useLazyQuery } from '@apollo/client';
 import { GET_AUTOCOMPLETE } from '../../graphql/queries';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../universal/store';
+
+import type { AutocompleteItem } from '../../universal/types';
 
 import { ClueItem } from '../ClueItem';
 
@@ -40,8 +46,8 @@ export const GameInfo: React.FC = () => {
   
   const tries = useSelector((state: RootState) => state.daily.guesses.length);
 
-  const [input, setInput] = useState('');
-  const [results, setResults] = useState([]);
+  const [input, setInput] = useState<string>('');
+  const [results, setResults] = useState<AutocompleteItem[]>([]);
 
   const { game } = useParams<{ game: string }>();
 
@@ -51,6 +57,12 @@ export const GameInfo: React.FC = () => {
       console.log("data: ", data);
     },
   });
+
+  const onSelect = (name: string) => {
+    setInput("");
+    setResults([]);
+    console.log(`Selected: ${name}`);
+  };
 
   return (
     <IonCol>
@@ -77,7 +89,10 @@ export const GameInfo: React.FC = () => {
             <IonButtons>
               <IonInput 
                 placeholder={placeholder || 'Loading...'} 
-                value={input} 
+                value={input}
+                autocorrect="off"
+                autocomplete="off"
+                spellCheck={false} 
                 onIonInput={(e) => {
                   const value = e.detail.value || '';
                   setInput(value);
@@ -93,6 +108,22 @@ export const GameInfo: React.FC = () => {
             </IonButtons>
           </IonRow>
         </IonCard>
+      </IonRow>
+      <IonRow className="ion-justify-content-center">
+        <IonList className={styles.resultsList}>
+          {results.length > 0 && 
+            results.map((item) => (
+            <IonItem
+              key={item.name}
+              onClick={() => onSelect(item.name)}
+            >
+              <IonThumbnail className={styles.thumbnail}>
+                <img src={item.image} alt={item.name} />
+              </IonThumbnail>  
+              <IonText className={styles.resultsLabel}>{item.name}</IonText>
+            </IonItem>
+          ))}
+        </IonList>
       </IonRow>
     </IonCol>
   );
