@@ -31,6 +31,7 @@ export const Game: React.FC = () => {
 
   useEffect(() => {
     if (!data || !data.gameInfo) return;
+    if (data.gameInfo.name) document.title = data.gameInfo.name || 'Blankdle';
     if (lastFetched !== today) {
       dispatch(dailyActions.clearState());
       dispatch(dailyActions.updateDaily(data.gameInfo));
