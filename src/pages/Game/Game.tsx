@@ -45,15 +45,19 @@ export const Game: React.FC = () => {
   const borderColor = useSelector((state: RootState) => state.daily.borderColor);
   const textColor = useSelector((state: RootState) => state.daily.textColor);
 
-  document.body.style.setProperty('--ion-color-bg', background ? `url(${background})` : 'var(--ion-color-primary)');
-  document.body.style.setProperty('--ion-color-fg', foregroundColor || '#3d3d3d');
-  document.body.style.setProperty('--ion-color-border', borderColor || '#2b2b2b');
-  document.body.style.setProperty('--ion-color-text', textColor || '#d6d6d6');
+  document.body.style.setProperty('--ion-card-background', foregroundColor || '#3d3d3d');
+  document.body.style.setProperty('--ion-card-border-color', borderColor || '#2b2b2b');
+  document.body.style.setProperty('--ion-text-color', textColor || '#d6d6d6');
+  document.body.style.setProperty('--ion-color-primary', textColor || '#d6d6d6');
+  document.body.style.setProperty('--ion-text-color-step-150', textColor || '#d6d6d6');
+  document.body.style.setProperty('--ion-text-color-step-450', textColor || '#d6d6d6');
 
   return (
-    <IonPage>
-        (!error ? 
-        <IonContent fullscreen>
+    <IonPage style={{backgroundImage: `url(${background})`}}>
+        <IonContent 
+          style={{ 
+            '--background': 'transparent',
+            }}>
             <Header />
             <GameInfo />
             <Spacer />

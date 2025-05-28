@@ -43,6 +43,8 @@ export const GameInfo: React.FC = () => {
   const clues = useSelector((state: RootState) => state.daily.clues);
   const icons = [removeOutline, reorderTwoOutline, reorderThreeOutline];
   const numberOfClues = Math.min(clues.length, clueTypes.length, icons.length);
+
+  const textColor = useSelector((state: RootState) => state.daily.textColor);
   
   const tries = useSelector((state: RootState) => state.daily.guesses.length);
 
@@ -88,6 +90,7 @@ export const GameInfo: React.FC = () => {
           <IonRow className="ion-padding-start">
             <IonButtons>
               <IonInput 
+                className={styles.searchInput}
                 placeholder={placeholder || 'Loading...'} 
                 value={input}
                 autocorrect="off"
@@ -102,9 +105,8 @@ export const GameInfo: React.FC = () => {
                     setResults([]);
                   }
                 }} 
-                clearInput
               />
-              <IonButton className={styles.button}><IonIcon icon={chevronForwardOutline} /></IonButton>
+              <IonButton className={styles.searchButton}><IonIcon icon={chevronForwardOutline} /></IonButton>
             </IonButtons>
           </IonRow>
         </IonCard>
