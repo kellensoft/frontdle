@@ -8,6 +8,8 @@ import { dailyActions } from '../../universal/slices/daily';
 import type { RootState } from '../../universal/store';
 import { GET_GAME_INFO } from '../../graphql/queries';
 
+import { setFavicon } from '../../utils/setFavicon';
+
 //import styles from './Game.module.css';
 
 import { Header } from '../../components/Header';
@@ -32,6 +34,12 @@ export const Game: React.FC = () => {
   useEffect(() => {
     if (!data || !data.gameInfo) return;
     if (data.gameInfo.name) document.title = data.gameInfo.name || 'Blankdle';
+    const originalHref = (document.querySelector("link[rel~='icon']") as HTMLLinkElement)?.href;
+
+    if (data.gameInfo?.icon) {
+      setFavicon(data.gameInfo.icon);
+    }
+
     if (lastFetched !== today) {
       dispatch(dailyActions.clearState());
       dispatch(dailyActions.updateDaily(data.gameInfo));
@@ -39,6 +47,12 @@ export const Game: React.FC = () => {
     } else {
       dispatch(dailyActions.refreshDaily(data?.gameInfo));
     }
+
+    return () => {
+      if (originalHref) {
+        setFavicon(originalHref);
+      }
+    };
   }, [data, dispatch, today, lastFetched]);
 
   const background = useSelector((state: RootState) => state.daily.background);

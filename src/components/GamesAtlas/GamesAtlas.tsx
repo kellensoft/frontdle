@@ -35,7 +35,7 @@ export const GamesAtlas: React.FC = () => {
         </IonCardHeader>
 
         <IonCardContent className={styles.gameList}>
-          {games.map((game, index) => (
+          {games.slice(0,5).map((game, index) => (
             <IonButton key={index} fill="clear" className={styles.gameButton} onClick={() => handleClick(game.name)}>
               <IonCol className="ion-padding ion-align-content-center ion-justify-content-center">
                 <IonRow className="ion-justify-content-center">
