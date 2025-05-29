@@ -1,14 +1,12 @@
 import React from 'react';
 import { 
     IonCard, 
-    IonContent, 
     IonText,
     IonIcon
 } from '@ionic/react';
 import {
     arrowDownOutline,
     arrowUpOutline,
-    at
 } from 'ionicons/icons';
 
 import styles from './GuessItem.module.css';
