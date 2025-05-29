@@ -16,6 +16,7 @@ import { RootState } from '../../universal/store';
 import styles from './GamesAtlas.module.css';
 
 export const GamesAtlas: React.FC = () => {
+  const name = useSelector((state: RootState) => state.daily.name);
   const games = useSelector((state: RootState) => state.daily.games);
 
   const handleClick = (game: string) => {
@@ -35,18 +36,23 @@ export const GamesAtlas: React.FC = () => {
         </IonCardHeader>
 
         <IonCardContent className={styles.gameList}>
-          {games.slice(0,5).map((game, index) => (
-            <IonButton key={index} fill="clear" className={styles.gameButton} onClick={() => handleClick(game.name)}>
-              <IonCol className="ion-padding ion-align-content-center ion-justify-content-center">
-                <IonRow className="ion-justify-content-center">
-                  <img className={styles.gameIcon} src={game.icon} alt={game.name[0].toUpperCase()} width={32} height={32}/>
-                </IonRow>
-                <IonRow className="ion-padding ion-justify-content-center">
-                  <IonText className={styles.gameName}>{game.name}</IonText>
-                </IonRow>
-              </IonCol>
-            </IonButton>
-          ))}
+          <IonRow className="ion-justify-content-center">
+            {games
+            .filter(game => game.name.toLowerCase() !== name.toLowerCase())
+            .slice(0,5)
+            .map((game, index) => (
+              <IonButton key={index} fill="clear" className={styles.gameButton} onClick={() => handleClick(game.name)}>
+                <IonCol className="ion-align-content-center ion-justify-content-center">
+                  <IonRow className="ion-justify-content-center">
+                    <img className={styles.gameIcon} src={game.icon} alt={game.name[0].toUpperCase()} width={32} height={32}/>
+                  </IonRow>
+                  <IonRow className="ion-padding ion-justify-content-center">
+                    <IonText className={styles.gameName}>{game.name}</IonText>
+                  </IonRow>
+                </IonCol>
+              </IonButton>
+            ))}
+          </IonRow>
         </IonCardContent>
       </IonCard>
     </IonRow>

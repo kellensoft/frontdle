@@ -18,6 +18,7 @@ import { Spacer } from '../../components/Spacer';
 import { GuessTable } from '../../components/GuessTable';
 import { ExtraData } from '../../components/ExtraData';
 import { Footer } from '../../components/Footer';
+import { GuessInput } from '../../components/GuessInput';
 
 export const Game: React.FC = () => {
   const { game } = useParams<{ game: string }>();
@@ -75,6 +76,7 @@ export const Game: React.FC = () => {
             }}>
             <Header />
             <GameInfo />
+            <GuessInput />
             <Spacer />
             <GuessTable />
             <Spacer />

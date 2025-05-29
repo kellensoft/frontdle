@@ -43,7 +43,7 @@ export const GET_AUTOCOMPLETE = gql`
   }
 `;
 
-export const GET_GUESS = gql`
+export const GET_GUESS_RESULT = gql`
   query Guess($game: String!, $word: String!) {
     guess(game: $game, word: $word) {
       guess

@@ -5,8 +5,9 @@ export interface UnifiedStorage {
 }
 
 export interface Guess {
-    word: string;
-    attributes: Attribute[];
+    guess: string;
+    image: string;
+    validation: Attribute[];
 }
 
 export interface Attribute {

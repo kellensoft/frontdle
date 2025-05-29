@@ -11,3 +11,8 @@
   height: auto;
   border-radius: 50%;
 }
+
+.gameName {
+  font-size: 0.75rem;
+  text-transform: capitalize;
+}

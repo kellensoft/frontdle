@@ -7,37 +7,44 @@ import {
 } from '@ionic/react';
 import {
     arrowDownOutline,
-    arrowUpOutline
+    arrowUpOutline,
+    at
 } from 'ionicons/icons';
 
 import styles from './GuessItem.module.css';
 
 import { Attribute } from '../../universal/types';
 
-export const GuessItem: React.FC<{  
-  attribute: Attribute; 
+export const GuessItem: React.FC<{
+    text?: string;
+    image?: string;
+    attribute?: Attribute; 
 }> = ({ 
-  attribute 
+    text,
+    image, 
+    attribute 
 }) => {
 
-    const bg: React.CSSProperties = attribute.color.startsWith('http') || attribute.color.startsWith('data:image')
+    const bg: React.CSSProperties = image
     ? {
-        backgroundImage: `url(${attribute.color})`,
+        backgroundImage: `url(${image})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-      }
-    : {
+    } : (attribute && attribute.color) ? {
         backgroundColor: attribute.color,
-    };
+    } : {};
 
     return (
         <IonCard className={styles.guessItem} style={bg}>
-            <IonContent className={styles.guessContent}>
-                ((attribute.direction === "up" || attribute.direction === "down") &&
-                <IonIcon icon={(attribute.direction === "down" ? arrowDownOutline : arrowUpOutline)} className={styles.icon}></IonIcon>
-                )
-                <IonText>{attribute.value}</IonText>
-            </IonContent>
+            { attribute &&
+              ( attribute.direction === "up" || attribute.direction === "down") && 
+                <IonIcon icon={(attribute.direction === "down" ? arrowDownOutline : arrowUpOutline)} className={styles.guessIcon}>
+                </IonIcon>}
+            { attribute &&     
+                <IonText className={styles.guessText}>
+                    {attribute.value}
+                </IonText>
+            }
         </IonCard>
     );
 };

@@ -3,19 +3,22 @@ import {
     IonRow 
 } from '@ionic/react';
 
-import { Attribute } from '../../universal/types';
+import { Guess, Attribute } from '../../universal/types';
 
 import { GuessItem } from '../GuessItem';
 
 import styles from './GuessRow.module.css';
 
 export const GuessRow: React.FC<{
-    attributes: Attribute[];
+    guess: Guess
 }> = ({
-    attributes
+    guess
 }) => {
+    const attributes: Attribute[] = guess.validation || [];
+    console.log('GuessRow attributes:', guess.validation);
     return (
         <IonRow className={styles.guessRow}>
+            <GuessItem image={guess.image} text={guess.guess} />
             {attributes.map((attribute, index) => (
                 <GuessItem key={index} attribute={attribute} />
             ))}

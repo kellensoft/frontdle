@@ -1,10 +1,10 @@
-.button, .searchButton {
+.button {
   padding: 0 0.25rem;
   font-size: 1.2rem;
   transition: transform 0.2s ease;
 }
 
-.button:hover, .searchButton:hover {
+.button:hover {
   transform: scale(1.1);  
   --background-hover: transparent;
   --background-focused: transparent;
@@ -20,39 +20,4 @@
   border-style: solid;
   margin-bottom: 0.5rem;
   border-color: var(--ion-card-border-color);
-}
-
-.searchBox {
-  border-radius: 2rem;
-  border-width: 0.2rem;
-  padding: 0.2rem;
-  border-style: solid;
-  margin-bottom: 0;
-  border-color: var(--ion-card-border-color);
-  background-color: white;
-  color: black;
-}
-
-.resultsList {
-  cursor: pointer;
-}
-
-.thumbnail {
-  height: 3rem;
-  width: 3rem;
-  border-radius: 0.5rem;
-  border-style: solid;
-  border-color: black;
-  margin-right: 1rem;
-}
-
-.thumbnail img {
-  height: 100%;
-  width: 100%;
-  border-radius: 0.3rem;
-}
-
-.resultsLabel {
-  user-select: none !important;
-  color: black;
 }
