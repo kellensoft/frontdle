@@ -47,7 +47,7 @@ export const GuessInput: React.FC = () => {
         onCompleted: (data) => {
             const newGuess = data?.guess;
             if (newGuess) {
-                dispatch(dailyActions.setGuesses([...guesses, newGuess]));
+                dispatch(dailyActions.setGuesses([newGuess, ...guesses]));
             }
         },
     });
