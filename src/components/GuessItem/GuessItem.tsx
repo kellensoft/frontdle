@@ -22,13 +22,20 @@ export const GuessItem: React.FC<{
     image, 
     attribute 
 }) => {
+    const backgroundColor = attribute?.color === "green" 
+    ? "var(--ion-color-success-shade)" 
+    : attribute?.color === "yellow" 
+    ? "var(--ion-color-warning-shade)" 
+    : "var(--ion-color-danger)";
+
+
     const bg: React.CSSProperties = image
     ? {
         backgroundImage: `url(${image})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
     } : (attribute && attribute.color) ? {
-        backgroundColor: attribute.color,
+        backgroundColor: backgroundColor,
     } : {};
 
     return (
