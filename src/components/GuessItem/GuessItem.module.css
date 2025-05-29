@@ -25,5 +25,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
+  font-size:calc(100% - 0.1vw);
   text-align: center;
 }
