@@ -15,7 +15,6 @@ export const GuessRow: React.FC<{
     guess
 }) => {
     const attributes: Attribute[] = guess.validation || [];
-    console.log('GuessRow attributes:', guess.validation);
     return (
         <IonRow className={styles.guessRow}>
             <GuessItem image={guess.image} text={guess.guess} />

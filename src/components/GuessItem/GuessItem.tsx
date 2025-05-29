@@ -20,12 +20,10 @@ export const GuessItem: React.FC<{
     image?: string;
     attribute?: Attribute; 
 }> = ({ 
-    text,
+    //text,
     image, 
     attribute 
 }) => {
-
-    console.log("GuessItem", text, image, attribute);
     const bg: React.CSSProperties = image
     ? {
         backgroundImage: `url(${image})`,

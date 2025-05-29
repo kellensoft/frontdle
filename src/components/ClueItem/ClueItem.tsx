@@ -17,13 +17,12 @@ export const ClueItem: React.FC<{
   requiredTries?: number,
   icon: string 
 }> = ({ 
-  clue, 
+  //clue, 
   clueType, 
   tries,
   requiredTries = 0,
   icon
 }) => {
-  console.log(clue);
   return (
     <IonCol>
       <IonButtons className="ion-justify-content-center">

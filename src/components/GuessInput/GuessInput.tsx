@@ -28,7 +28,7 @@ import styles from './GuessInput.module.css';
 export const GuessInput: React.FC = () => {
     const placeholder = useSelector((state: RootState) => state.daily.placeholder);
     const guesses = useSelector((state: RootState) => state.daily.guesses);
-    const guessWords = useMemo(() => guesses.map(guess => guess.word), [guesses]);
+    const guessWords = useMemo(() => guesses.map(guess => guess.guess), [guesses]);
 
     const [input, setInput] = useState<string>('');
     const [results, setResults] = useState<AutocompleteItem[]>([]);
@@ -45,7 +45,6 @@ export const GuessInput: React.FC = () => {
 
     const [fetchGuess] = useLazyQuery(GET_GUESS_RESULT, {
         onCompleted: (data) => {
-            console.log('Guess result:', data);
             const newGuess = data?.guess;
             if (newGuess) {
                 dispatch(dailyActions.setGuesses([...guesses, newGuess]));

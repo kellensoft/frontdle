@@ -10,7 +10,6 @@ import styles from './GuessTable.module.css';
 
 export const GuessTable: React.FC = () => {
     const guesses = useSelector((state: RootState) => state.daily.guesses);
-    console.log('Guesses:', guesses);
     
     return (
         (guesses.length > 0 &&
