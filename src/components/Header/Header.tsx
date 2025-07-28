@@ -25,7 +25,12 @@ export const Header: React.FC = () => {
 
   return (
     <IonCol>
-      <IonRow className="ion-justify-content-center">
+      <IonRow 
+        className="ion-justify-content-center"
+        style={{
+          fontFamily: 'var(--logo-font-family)',
+          color: 'var(--logo-text-color)',
+        }}>
         <IonButtons className={`${styles.header} ion-align-items-bottom`}>
           <IonButton className={styles.button}>
             <IonIcon icon={settingsOutline} />
@@ -38,7 +43,12 @@ export const Header: React.FC = () => {
           </IonButton>
         </IonButtons>
       </IonRow>
-      <IonRow className="ion-justify-content-center">
+      <IonRow 
+        className="ion-justify-content-center"
+        style={{
+          fontFamily: 'var(--logo-font-family)',
+          color: 'var(--logo-text-color)',
+        }}>
         <IonButtons>
           <IonButton className={styles.button}><IonIcon icon={statsChart} /></IonButton>
           <IonButton className={styles.button}><IonIcon icon={flameOutline} /></IonButton>

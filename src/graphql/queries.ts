@@ -7,23 +7,91 @@ export const GET_GAME_INFO = gql`
       header
       body
       placeholder
+      attributes
       background
       icon
-      foregroundColor
-      borderColor
-      textColor
+
+      logoTextColor
+      logoFontFamily
+
+      modalBackgroundColor
+      modalBorderColor
+      modalBorderWidth
+      modalBorderRadius
+      modalFontFamily
+      modalTextColor
+
+      infoBackgroundColor
+      infoBorderColor
+      infoBorderWidth
+      infoBorderRadius
+      infoFontFamily
+      infoTextColor
+
+      inputBackgroundColor
+      inputBorderColor
+      inputBorderWidth
+      inputBorderRadius
+      inputFontFamily
+      inputTextColor
+
+      tableFontFamily
+      tableTextColor
+
+      tileBorderColor
+      tileBorderWidth
+      tileBorderRadius
+      tileColorCorrect
+      tileColorIncorrect
+      tileColorPartial
+      tileColorDefault
+      tileFontFamily
+      tileTextCorrect
+      tileTextInCorrect
+      tileTextPartial
+      tileTextDefault
+
+      yesterdayBackgroundColor
+      yesterdayBorderColor
+      yesterdayBorderWidth
+      yesterdayBorderRadius
+      yesterdayFontFamily
+      yesterdayTextColor
+      yesterdayItemFontFamily
+      yesterdayItemTextColor
+
+      keyBackgroundColor
+      keyBorderColor
+      keyBorderWidth
+      keyBorderRadius
+      keyFontFamily
+      keyTextColor
+
+      atlasBackgroundColor
+      atlasBorderColor
+      atlasBorderWidth
+      atlasBorderRadius
+      atlasFontFamily
+      atlasTextColor
+
+      footerTextColor
+      footerFontFamily
+
       clueTypes {
         clueType
         clueDescription
       }
+
       games {
         name
         icon
       }
+
       yesterdaysAnswer
     }
   }
 `;
+
 
 export const GET_CLUE = gql`
   query Clue($game: String!, $type: String!) {
@@ -49,10 +117,13 @@ export const GET_GUESS_RESULT = gql`
       guess
       image
       validation {
-        type
-        value
-        color
-        direction
+        state
+        content {
+          type
+          values
+          urls
+        }
+        arrow
       }
     }
   }

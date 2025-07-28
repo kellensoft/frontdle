@@ -12,17 +12,32 @@ import { RootState } from '../../universal/store';
 import styles from './GuessHeader.module.css';
 
 export const GuessHeader: React.FC = () => {
-    const guesses = useSelector((state: RootState) => state.daily.guesses);
-    const types = useMemo(() => guesses[0].validation.map(attribute => attribute.type), [guesses]);
+    const attributes = useSelector((state: RootState) => state.daily.attributes);
     
     return (
-        (types.length > 0 && 
+        (attributes.length > 0 && 
             <IonRow className={styles.guessHeader}>
-                <IonCol className={styles.guessHeaderItem}>
+                <IonCol 
+                    className={styles.guessHeaderItem} 
+                    style={{
+                        fontFamily: 'var(--table-font-family)',
+                        color: 'var(--table-text-color)',
+                        borderBottom: '0.2rem solid var(--table-text-color)',
+                        boxShadow: '0 2px 1px -1px rgba(0, 0, 0, 0.5)',
+                    }}>
                     <IonIcon icon={helpCircleOutline} className={styles.guessIcon} />    
                 </IonCol>
-                {types.map((type, index) => (
-                    <IonCol key={index} className={styles.guessHeaderItem}>
+                {attributes.map((type, index) => (
+                    <IonCol 
+                        key={index} 
+                        className={styles.guessHeaderItem}
+                        style={{
+                            fontFamily: 'var(--table-font-family)',
+                            color: 'var(--table-text-color)',
+                            borderBottom: '0.2rem solid var(--table-text-color)',
+                            textShadow: '1px 1px 2px rgba(0,0,0.5)',
+                            boxShadow: '0 2px 1px -1px rgba(0, 0, 0, 0.5)',
+                        }}>
                         <IonText key={index} className={styles.guessText}>
                             {type}
                         </IonText>

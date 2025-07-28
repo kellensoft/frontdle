@@ -12,12 +12,3 @@
   --background: transparent;
   background-color: transparent !important;
 }
-
-.card {
-  min-width: 25rem;
-  border-radius: 0.9rem;
-  border-width: 0.3rem;
-  border-style: solid;
-  margin-bottom: 0.5rem;
-  border-color: var(--ion-card-border-color);
-}

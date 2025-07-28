@@ -1,54 +1,83 @@
 import React from 'react';
-import { 
-    IonCard, 
-    IonText,
-    IonIcon
-} from '@ionic/react';
-import {
-    arrowDownOutline,
-    arrowUpOutline,
-} from 'ionicons/icons';
+import type { Item } from '../../universal/types';
+import { Arrow } from '../Arrow';
 
 import styles from './GuessItem.module.css';
 
-import { Attribute } from '../../universal/types';
+const MIN_TEXT_SIZE = 12;
+const MIN_IMG_SIZE = 20;
 
 export const GuessItem: React.FC<{
-    text?: string;
-    image?: string;
-    attribute?: Attribute; 
+    item: Item,
+    background?: string,
+    useBorder?: boolean,
 }> = ({ 
-    //text,
-    image, 
-    attribute 
+    item,
+    background,
+    useBorder
 }) => {
-    const backgroundColor = attribute?.color === "green" 
-    ? "var(--ion-color-success-shade)" 
-    : attribute?.color === "yellow" 
-    ? "var(--ion-color-warning-shade)" 
-    : "var(--ion-color-danger)";
+    const { state, content, arrow } = item;
 
-
-    const bg: React.CSSProperties = image
-    ? {
-        backgroundImage: `url(${image})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-    } : (attribute && attribute.color) ? {
-        backgroundColor: backgroundColor,
-    } : {};
+    const hasText = content?.some(c => c.type === 'text');
+    const hasImage = content?.some(c => c.type === 'image');
 
     return (
-        <IonCard className={styles.guessItem} style={bg}>
-            { attribute &&
-              ( attribute.direction === "up" || attribute.direction === "down") && 
-                <IonIcon icon={(attribute.direction === "down" ? arrowDownOutline : arrowUpOutline)} className={styles.guessIcon}>
-                </IonIcon>}
-            { attribute &&     
-                <IonText className={styles.guessText}>
-                    {attribute.value}
-                </IonText>
-            }
-        </IonCard>
+        <div
+            style={{
+                fontFamily: 'var(--tile-font-family)',
+                color: 'var(--tile-text-color-'+state+')',
+                padding: '0.5rem',
+                borderColor: useBorder ? 'var(--tile-border-color)' : state === 'default' ? 'var(--table-text-color)' : 'color-mix(in srgb, var(--tile-color-'+state+') 70%, white 30%)',
+                borderWidth: 'var(--tile-border-width)',
+                borderStyle: 'solid',
+                borderRadius: 'var(--tile-border-radius)',
+                boxSizing: 'border-box',
+                position: 'relative',
+                width: '4rem',
+                height: '4.25rem',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: '0 0.5rem',
+                textAlign: 'center',
+                backgroundImage: `url(${background})`,
+                backgroundSize: 'contain',
+                backgroundColor: 'var(--tile-color-'+state+')',
+            }}>
+            {(arrow === "up" || arrow === "down") && <Arrow flip={(arrow === "up")} />}
+            <div style={{
+                position: 'relative',
+                zIndex: 1
+            }}>
+                {hasText && !hasImage &&
+                    content
+                    .filter(c => c.type === 'text')
+                    .map((block, i) =>
+                        block.values?.map((line, j) => (
+                        <div key={`${i}-${j}`}>{line}</div>
+                        ))
+                    )}
+
+                {hasImage &&
+                    content
+                    .filter(c => c.type === 'image')
+                    .flatMap((block, i) =>
+                        block.urls?.map((url, j) => (
+                        <img
+                            key={`${i}-${j}`}
+                            src={url}
+                            alt=""
+                            style={{
+                                width: MIN_IMG_SIZE,
+                                height: MIN_IMG_SIZE,
+                                objectFit: 'contain',
+                                margin: '1px',
+                            }}
+                        />
+                        )) ?? []
+                    )}
+            </div>
+        </div>
     );
 };

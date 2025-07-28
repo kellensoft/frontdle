@@ -33,12 +33,41 @@ export const GameInfo: React.FC = () => {
 
   return (
       <IonRow className="ion-justify-content-center">
-        <IonCard className={`ion-padding ion-no-margin ${styles.card}`}>
+        <IonCard 
+          className="ion-padding ion-no-margin"
+          style={{
+            minWidth: '25rem',
+            borderRadius: 'var(--info-border-radius)',
+            borderWidth: 'var(--info-border-width)',
+            borderStyle: 'solid',
+            marginBottom: '0.5rem',
+            borderColor: 'var(--info-border-color)',
+            backgroundColor: 'var(--info-background-color)',
+          }}>
           <IonCardHeader>
-            <IonCardTitle className="instruction-header">{header || 'Loading...'}</IonCardTitle>
-            <IonCardSubtitle className="instruction-text">{body || 'Loading...'}</IonCardSubtitle>
+            <IonCardTitle 
+              className="instruction-header"
+              style={{
+                fontFamily: 'var(--info-font-family)',
+                color: 'var(--info-text-color)',
+              }}>
+                {header || 'Loading...'}
+                </IonCardTitle>
+            <IonCardSubtitle 
+              className="instruction-text"
+              style={{
+                fontFamily: 'var(--info-font-family)',
+                color: 'var(--info-text-color)',
+              }}>
+                {body || 'Loading...'}
+              </IonCardSubtitle>
           </IonCardHeader>
-          <IonCardContent className="ion-text-center">
+          <IonCardContent 
+            className="ion-text-center"
+            style={{
+              fontFamily: 'var(--info-font-family)',
+              color: 'var(--info-text-color)',
+            }}>
             { tries > 1 &&
               <IonRow>
                 {Array.from({ length: numberOfClues - 1 }, (_, i) => (

@@ -7,14 +7,21 @@ export interface UnifiedStorage {
 export interface Guess {
     guess: string;
     image: string;
-    validation: Attribute[];
+    validation: Item[];
 }
 
-export interface Attribute {
-    type: string;
-    value: string;
-    color: string;
-    direction: string;
+export interface ContentBlock {
+  type: 'text' | 'image';
+  values?: string[];
+  urls?: string[];
+}
+
+export type ItemState = 'correct' | 'incorrect' | 'partial' | 'default';
+
+export interface Item {
+  state: ItemState;
+  content: ContentBlock[];
+  arrow?: 'up' | 'down';
 }
 
 export interface Games {

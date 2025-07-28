@@ -44,7 +44,7 @@ export const Footer: React.FC = () => {
       </IonRow>
       <IonRow className="ion-justify-content-center">
         <IonText className={`${styles.footerPrivacy} ion-text-center`}>
-          <a href={privacyUrl}>Privacy Policy</a>
+          <a href={privacyUrl} className={styles.footerPrivacyLink}>Privacy Policy</a>
         </IonText>
       </IonRow>
     </IonCol>
