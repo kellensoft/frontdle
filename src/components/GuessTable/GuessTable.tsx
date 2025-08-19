@@ -6,6 +6,8 @@ import type { RootState } from '../../universal/store';
 import { GuessHeader } from '../GuessHeader';
 import { GuessRow } from '../GuessRow';
 
+import { Styled } from '../Styled';
+
 import styles from './GuessTable.module.css';
 
 export const GuessTable: React.FC = () => {
@@ -13,12 +15,14 @@ export const GuessTable: React.FC = () => {
     
     return (
         (guesses.length > 0 &&
-        <IonGrid className={styles.guessTable}>
-            <GuessHeader />
-            {guesses.map((guess, index) => (
-                <GuessRow key={index} guess={guess} />
-            ))}
-        </IonGrid>
+        <Styled name="table">
+            <IonGrid className={styles.guessTable}>
+                <GuessHeader />
+                {guesses.map((guess, index) => (
+                    <GuessRow key={index} guess={guess} />
+                ))}
+            </IonGrid>
+        </Styled>
         )
     );
 };

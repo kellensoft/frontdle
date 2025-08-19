@@ -9,85 +9,152 @@ export const GET_GAME_INFO = gql`
       placeholder
       attributes
       background
+      logo
       icon
-
-      logoTextColor
-      logoFontFamily
-
-      modalBackgroundColor
-      modalBorderColor
-      modalBorderWidth
-      modalBorderRadius
-      modalFontFamily
-      modalTextColor
-
-      infoBackgroundColor
-      infoBorderColor
-      infoBorderWidth
-      infoBorderRadius
-      infoFontFamily
-      infoTextColor
-
-      inputBackgroundColor
-      inputBorderColor
-      inputBorderWidth
-      inputBorderRadius
-      inputFontFamily
-      inputTextColor
-
-      tableFontFamily
-      tableTextColor
-
-      tileBorderColor
-      tileBorderWidth
-      tileBorderRadius
-      tileColorCorrect
-      tileColorIncorrect
-      tileColorPartial
-      tileColorDefault
-      tileFontFamily
-      tileTextCorrect
-      tileTextInCorrect
-      tileTextPartial
-      tileTextDefault
-
-      yesterdayBackgroundColor
-      yesterdayBorderColor
-      yesterdayBorderWidth
-      yesterdayBorderRadius
-      yesterdayFontFamily
-      yesterdayTextColor
-      yesterdayItemFontFamily
-      yesterdayItemTextColor
-
-      keyBackgroundColor
-      keyBorderColor
-      keyBorderWidth
-      keyBorderRadius
-      keyFontFamily
-      keyTextColor
-
-      atlasBackgroundColor
-      atlasBorderColor
-      atlasBorderWidth
-      atlasBorderRadius
-      atlasFontFamily
-      atlasTextColor
-
-      footerTextColor
-      footerFontFamily
-
-      clueTypes {
+      clueTypes {     
         clueType
         clueDescription
       }
-
       games {
         name
         icon
       }
-
       yesterdaysAnswer
+      sections {
+        header { ...SectionStyleFields }
+        menu { ...SectionStyleFields }
+        description { ...SectionStyleFields }
+        input { ...SectionStyleFields }
+        key { ...SectionStyleFields }
+        today { ...SectionStyleFields }
+        share { ...SectionStyleFields }
+        moreGames { ...SectionStyleFields }
+        about { ...SectionStyleFields }
+        modal { ...SectionStyleFields }
+
+        table {
+          ...TableSectionFields
+        }
+
+        yesterday {
+          ...YesterdaySectionFields
+        }
+      }
+    }
+  }
+
+
+  fragment SectionStyleFields on BasicSection {
+    __typename
+    padding
+    margin
+    textAlign
+    backgroundColor
+    backgroundImage
+    backgroundSize
+    backgroundRepeat
+    backgroundPosition
+    borderColor
+    borderWidth
+    borderRadius
+    boxShadow
+    fontFamily
+    fontSize
+    fontWeight
+    textColor
+    decorationTopImage
+    decorationTopHeight
+    decorationBottomImage
+    decorationBottomHeight
+  }
+
+  fragment TileStyleFields on TileStyle {
+    __typename
+    padding
+    margin
+    textAlign
+    backgroundColor
+    backgroundImage
+    backgroundSize
+    backgroundRepeat
+    backgroundPosition
+    borderColor
+    borderWidth
+    borderRadius
+    boxShadow
+    fontFamily
+    fontSize
+    fontWeight
+    textColor
+    decorationTopImage
+    decorationTopHeight
+    decorationBottomImage
+    decorationBottomHeight
+    colors {
+      correct
+      incorrect
+      partial
+      default
+    }
+    labels {
+      correct
+      incorrect
+      partial
+      default
+    }
+  }
+
+  fragment TableSectionFields on TableSection {
+    __typename
+    padding
+    margin
+    textAlign
+    backgroundColor
+    backgroundImage
+    backgroundSize
+    backgroundRepeat
+    backgroundPosition
+    borderColor
+    borderWidth
+    borderRadius
+    boxShadow
+    fontFamily
+    fontSize
+    fontWeight
+    textColor
+    decorationTopImage
+    decorationTopHeight
+    decorationBottomImage
+    decorationBottomHeight
+    tile {
+      ...TileStyleFields
+    }
+  }
+
+  fragment YesterdaySectionFields on YesterdaySection {
+    __typename
+    padding
+    margin
+    textAlign
+    backgroundColor
+    backgroundImage
+    backgroundSize
+    backgroundRepeat
+    backgroundPosition
+    borderColor
+    borderWidth
+    borderRadius
+    boxShadow
+    fontFamily
+    fontSize
+    fontWeight
+    textColor
+    decorationTopImage
+    decorationTopHeight
+    decorationBottomImage
+    decorationBottomHeight
+    item {
+      ...SectionStyleFields
     }
   }
 `;

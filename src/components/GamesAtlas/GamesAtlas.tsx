@@ -13,6 +13,8 @@ import {
 import { useSelector } from 'react-redux';
 import { RootState } from '../../universal/store';
 
+import { Styled } from '../Styled';
+
 import styles from './GamesAtlas.module.css';
 
 export const GamesAtlas: React.FC = () => {
@@ -25,22 +27,16 @@ export const GamesAtlas: React.FC = () => {
 
   return (
     <IonRow className="ion-padding ion-justify-content-center">
-      <IonCard 
-        className='game-atlas'
-        style={{
-          minWidth: '25rem',
-          background: 'var(--atlas-background-color)',
-          borderRadius: 'var(--atlas-border-radius)',
-          borderWidth: 'var(--atlas-border-width)',
-          borderStyle: 'solid',
-          borderColor: 'var(--atlas-border-color)',
-        }}>
-        <IonCardHeader>
+      <Styled name="more-games">
+        <IonCardHeader
+          style={{
+            minWidth: '25rem'
+          }}>
           <IonCardTitle 
             className="ion-text-center"          
             style={{
-              fontFamily: 'var(--atlas-font-family)',
-              color: 'var(--atlas-text-color)',
+              fontFamily: 'var(--more-games-font-family)',
+              color: 'var(--more-games-text-color)',
             }}>
               Want more?
           </IonCardTitle>
@@ -48,16 +44,16 @@ export const GamesAtlas: React.FC = () => {
             <IonCardSubtitle 
               className="ion-text-center"
               style={{
-                fontFamily: 'var(--atlas-font-family)',
-                color: 'var(--atlas-text-color)',
+                fontFamily: 'var(--more-games-font-family)',
+                color: 'var(--more-games-text-color)',
               }}>
               No other games available.
             </IonCardSubtitle>
           ) : (
             <IonCardSubtitle className="ion-text-center"
               style={{
-                fontFamily: 'var(--atlas-font-family)',
-                color: 'var(--atlas-text-color)',
+                fontFamily: 'var(--more-games-font-family)',
+                color: 'var(--more-games-text-color)',
               }}>
                 Play our other games:
             </IonCardSubtitle>
@@ -79,8 +75,8 @@ export const GamesAtlas: React.FC = () => {
                     <IonText 
                       className={styles.gameName}
                       style={{
-                        fontFamily: 'var(--atlas-font-family)',
-                        color: 'var(--atlas-text-color)',
+                        fontFamily: 'var(--more-games-font-family)',
+                        color: 'var(--more-games-text-color)',
                       }}>
                       {game.name}
                     </IonText>
@@ -90,7 +86,7 @@ export const GamesAtlas: React.FC = () => {
             ))}
           </IonRow>
         </IonCardContent>
-      </IonCard>
+      </Styled>
     </IonRow>
   );
 };

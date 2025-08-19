@@ -20,8 +20,6 @@ export const GuessHeader: React.FC = () => {
                 <IonCol 
                     className={styles.guessHeaderItem} 
                     style={{
-                        fontFamily: 'var(--table-font-family)',
-                        color: 'var(--table-text-color)',
                         borderBottom: '0.2rem solid var(--table-text-color)',
                         boxShadow: '0 2px 1px -1px rgba(0, 0, 0, 0.5)',
                     }}>
@@ -32,8 +30,6 @@ export const GuessHeader: React.FC = () => {
                         key={index} 
                         className={styles.guessHeaderItem}
                         style={{
-                            fontFamily: 'var(--table-font-family)',
-                            color: 'var(--table-text-color)',
                             borderBottom: '0.2rem solid var(--table-text-color)',
                             textShadow: '1px 1px 2px rgba(0,0,0.5)',
                             boxShadow: '0 2px 1px -1px rgba(0, 0, 0, 0.5)',

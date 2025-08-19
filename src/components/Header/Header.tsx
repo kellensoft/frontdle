@@ -17,20 +17,17 @@ import {
 } from 'ionicons/icons';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../universal/store';
+import { Styled } from '../Styled';
 
 import styles from './Header.module.css';
 
 export const Header: React.FC = () => {
   const title = useSelector((state: RootState) => state.daily.name);
-
+  const headerColor = useSelector((state: RootState) => state.daily.sections.header.textColor);
   return (
-    <IonCol>
+    <Styled name="header">
       <IonRow 
-        className="ion-justify-content-center"
-        style={{
-          fontFamily: 'var(--logo-font-family)',
-          color: 'var(--logo-text-color)',
-        }}>
+        className="ion-justify-content-center header">
         <IonButtons className={`${styles.header} ion-align-items-bottom`}>
           <IonButton className={styles.button}>
             <IonIcon icon={settingsOutline} />
@@ -46,16 +43,16 @@ export const Header: React.FC = () => {
       <IonRow 
         className="ion-justify-content-center"
         style={{
-          fontFamily: 'var(--logo-font-family)',
-          color: 'var(--logo-text-color)',
+          fontFamily: 'var(--menu-font-family)',
+          color: 'var(--menu-text-color)',
         }}>
         <IonButtons>
-          <IonButton className={styles.button}><IonIcon icon={statsChart} /></IonButton>
-          <IonButton className={styles.button}><IonIcon icon={flameOutline} /></IonButton>
-          <IonButton className={styles.button}><IonIcon icon={clipboardOutline} /></IonButton>
-          <IonButton className={styles.button}><IonIcon icon={helpCircleOutline} /></IonButton>
+          <IonButton className={styles.button}><IonIcon icon={statsChart} style={{color: 'var(--menu-text-color)'}} /></IonButton>
+          <IonButton className={styles.button}><IonIcon icon={flameOutline} style={{color: 'var(--menu-text-color)'}} /></IonButton>
+          <IonButton className={styles.button}><IonIcon icon={clipboardOutline} style={{color: 'var(--menu-text-color)'}} /></IonButton>
+          <IonButton className={styles.button}><IonIcon icon={helpCircleOutline} style={{color: 'var(--menu-text-color)'}} /></IonButton>
         </IonButtons>
       </IonRow>
-    </IonCol>
+    </Styled>
   );
 };

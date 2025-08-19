@@ -12,6 +12,7 @@ import {
   informationCircleOutline, 
   heartOutline 
 } from 'ionicons/icons';
+import { Styled } from '../Styled';
 
 import styles from './Footer.module.css';
 
@@ -21,7 +22,7 @@ export const Footer: React.FC = () => {
   const privacyUrl = import.meta.env.VITE_APP_PRIVACY_URL || '';
 
   return (
-    <IonCol>
+    <Styled name='about'>
       <IonRow className="ion-padding ion-justify-content-center">
         <IonButtons className={styles.footerIcons}>
           <IonButton className={styles.button} onClick={() => window.location.href = '/'}>
@@ -47,6 +48,6 @@ export const Footer: React.FC = () => {
           <a href={privacyUrl} className={styles.footerPrivacyLink}>Privacy Policy</a>
         </IonText>
       </IonRow>
-    </IonCol>
+    </Styled>
   );
 };

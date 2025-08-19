@@ -16,7 +16,7 @@ export const GuessRow: React.FC<{
 }> = ({
     guess
 }) => {
-    const useBorder = typeof(useSelector((state: RootState) => state.daily.tileBorderColor))==='string';
+    const useBorder = typeof(useSelector((state: RootState) => state.daily.sections.table.tile.borderColor))==='string';
 
     const labelContent: ContentBlock = {
         type: 'image',
@@ -30,9 +30,9 @@ export const GuessRow: React.FC<{
     const items: Item[] = guess.validation || [];
     return (
         <IonRow className={styles.guessRow}>
-            <GuessItem background={guess.image} item={label} useBorder={useBorder} />
+            <GuessItem background={guess.image} item={label} useBorder={useBorder} tooltip={guess.guess}/>
             {items.map((item, index) => (
-                <GuessItem key={index} item={item} useBorder={useBorder} />
+                <GuessItem index={index+1} key={index} item={item} useBorder={useBorder} />
             ))}
         </IonRow>
     );

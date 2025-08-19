@@ -9,6 +9,7 @@ export const Arrow: React.FC<{
       <div 
         style={{
             position: 'absolute',
+            left: 0
         }}>
             {( flip ? 
                 <svg width="60" height="65" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

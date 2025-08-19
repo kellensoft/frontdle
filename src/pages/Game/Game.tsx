@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import { dailyActions } from '../../universal/slices/daily';
 import type { RootState } from '../../universal/store';
 import { GET_GAME_INFO } from '../../graphql/queries';
+import { SectionStyle } from '../../universal/types';
 
 import { setFavicon } from '../../utils/setFavicon';
 
@@ -18,174 +19,133 @@ import { ExtraData } from '../../components/ExtraData';
 import { Footer } from '../../components/Footer';
 import { GuessInput } from '../../components/GuessInput';
 
+const applySectionStyles = (prefix: string, style?: SectionStyle) => {
+  if (!style) return;
+  const root = document.body.style;
+
+  if (style.backgroundColor)
+    root.setProperty(`--${prefix}-background-color`, style.backgroundColor);
+  if (style.backgroundImage)
+    root.setProperty(`--${prefix}-background-image`, `url(${style.backgroundImage})`);
+  if (style.backgroundSize)
+    root.setProperty(`--${prefix}-background-size`, style.backgroundSize);
+  if (style.backgroundRepeat)
+    root.setProperty(`--${prefix}-background-repeat`, style.backgroundRepeat);
+  if (style.backgroundPosition)
+    root.setProperty(`--${prefix}-background-position`, style.backgroundPosition);
+
+  if (style.borderColor)
+    root.setProperty(`--${prefix}-border-color`, style.borderColor);
+  if (style.borderWidth)
+    root.setProperty(`--${prefix}-border-width`, style.borderWidth);
+  if (style.borderRadius)
+    root.setProperty(`--${prefix}-border-radius`, style.borderRadius);
+  if (style.boxShadow)
+    root.setProperty(`--${prefix}-box-shadow`, style.boxShadow);
+
+  if (style.fontFamily)
+    root.setProperty(`--${prefix}-font-family`, style.fontFamily);
+  if (style.fontSize)
+    root.setProperty(`--${prefix}-font-size`, style.fontSize);
+  if (style.fontWeight)
+    root.setProperty(`--${prefix}-font-weight`, style.fontWeight);
+  if (style.textColor)
+    root.setProperty(`--${prefix}-text-color`, style.textColor);
+
+  if (style.padding)
+    root.setProperty(`--${prefix}-padding`, style.padding);
+  if (style.margin)
+    root.setProperty(`--${prefix}-margin`, style.margin);
+
+  if (style.decorationTopImage)
+    root.setProperty(`--${prefix}-decoration-top-image`, `url(${style.decorationTopImage})`);
+  if (style.decorationTopHeight)
+    root.setProperty(`--${prefix}-decoration-top-height`, style.decorationTopHeight);
+  if (style.decorationBottomImage)
+    root.setProperty(`--${prefix}-decoration-bottom-image`, `url(${style.decorationBottomImage})`);
+  if (style.decorationBottomHeight)
+    root.setProperty(`--${prefix}-decoration-bottom-height`, style.decorationBottomHeight);
+};
+
 export const Game: React.FC = () => {
   const { game } = useParams<{ game: string }>();
 
-  const { data } = useQuery(GET_GAME_INFO, {
+  const { data, loading, error } = useQuery(GET_GAME_INFO, {
     variables: { game },
-    fetchPolicy: 'cache-first',
+    fetchPolicy: 'no-cache',
   });
 
   const dispatch = useDispatch();
   const today = new Date().toISOString().split('T')[0];
   const lastFetched = useSelector((state: RootState) => state.daily.lastFetchedDate);
 
-  useEffect(() => {
-    if (!data || !data.gameInfo) return;
-    if (data.gameInfo.name) document.title = data.gameInfo.name || 'Blankdle';
-    const originalHref = (document.querySelector("link[rel~='icon']") as HTMLLinkElement)?.href;
+  const { background, sections } = useSelector((state: RootState) => state.daily);
 
-    if (data.gameInfo?.icon) {
-      setFavicon(data.gameInfo.icon);
+  useEffect(() => {
+    if (loading || error) return;
+    if (!data?.gameInfo) return;
+
+    const gameInfo = data.gameInfo;
+
+    document.title = gameInfo.name || 'Blankdle';
+
+    const originalFavicon = (document.querySelector("link[rel~='icon']") as HTMLLinkElement)?.href;
+    if (gameInfo.icon) {
+      setFavicon(gameInfo.icon);
     }
 
     if (lastFetched !== today) {
       dispatch(dailyActions.clearState());
-      dispatch(dailyActions.updateDaily(data.gameInfo));
+      dispatch(dailyActions.updateDaily(gameInfo));
       dispatch(dailyActions.setLastFetchedDate(today));
     } else {
-      dispatch(dailyActions.refreshDaily(data?.gameInfo));
+      dispatch(dailyActions.refreshDaily(gameInfo));
+    }
+
+    if (!sections) return;
+
+    applySectionStyles('header', sections.header);
+    applySectionStyles('menu', sections.menu);
+    applySectionStyles('modal', sections.modal);
+    applySectionStyles('info', sections.description);
+    applySectionStyles('input', sections.input);
+    applySectionStyles('table', sections.table);
+    applySectionStyles('tile', sections.table?.tile);
+    applySectionStyles('yesterday', sections.yesterday);
+    applySectionStyles('yesterday-item', sections.yesterday?.item);
+    applySectionStyles('key', sections.key);
+    applySectionStyles('today', sections.today);
+    applySectionStyles('share', sections.share);
+    applySectionStyles('more-games', sections.moreGames);
+    applySectionStyles('about', sections.about);
+
+    const root = document.body.style;
+    const tile = sections.table?.tile;
+
+    if (tile?.colors) {
+      root.setProperty('--tile-color-correct', tile.colors.correct || '#28dd50');
+      root.setProperty('--tile-color-incorrect', tile.colors.incorrect || '#c5000f');
+      root.setProperty('--tile-color-partial', tile.colors.partial || '#ffc409');
+      root.setProperty('--tile-color-default', tile.colors.default || '#f6f8fc');
+    }
+
+    if (tile?.labels) {
+      root.setProperty('--tile-text-correct', tile.labels.correct || 'Correct');
+      root.setProperty('--tile-text-incorrect', tile.labels.incorrect || 'Incorrect');
+      root.setProperty('--tile-text-partial', tile.labels.partial || 'Partial');
+      root.setProperty('--tile-text-default', tile.labels.default || 'Default');
     }
 
     return () => {
-      if (originalHref) {
-        setFavicon(originalHref);
+      if (originalFavicon) {
+        setFavicon(originalFavicon);
       }
     };
   }, [data, dispatch, today, lastFetched]);
 
-  const {
-    background,
-    logoTextColor,
-    logoFontFamily,
-    modalBackgroundColor,
-    modalBorderColor,
-    modalBorderWidth,
-    modalBorderRadius,
-    modalFontFamily,
-    modalTextColor,
-    infoBackgroundColor,
-    infoBorderColor,
-    infoBorderWidth,
-    infoBorderRadius,
-    infoFontFamily,
-    infoTextColor,
-    inputBackgroundColor,
-    inputBorderColor,
-    inputBorderWidth,
-    inputBorderRadius,
-    inputFontFamily,
-    inputTextColor,
-    tableFontFamily,
-    tableTextColor,
-    tileBorderColor,
-    tileBorderWidth,
-    tileBorderRadius,
-    tileColorCorrect,
-    tileColorIncorrect,
-    tileColorPartial,
-    tileColorDefault,
-    tileFontFamily,
-    tileTextCorrect,
-    tileTextInCorrect,
-    tileTextPartial,
-    tileTextDefault,
-    yesterdayBackgroundColor,
-    yesterdayBorderColor,
-    yesterdayBorderWidth,
-    yesterdayBorderRadius,
-    yesterdayFontFamily,
-    yesterdayTextColor,
-    yesterdayItemFontFamily,
-    yesterdayItemTextColor,
-    keyBackgroundColor,
-    keyBorderColor,
-    keyBorderWidth,
-    keyBorderRadius,
-    keyFontFamily,
-    keyTextColor,
-    atlasBackgroundColor,
-    atlasBorderColor,
-    atlasBorderWidth,
-    atlasBorderRadius,
-    atlasFontFamily,
-    atlasTextColor,
-    footerTextColor,
-    footerFontFamily,
-  } = useSelector((state: RootState) => state.daily);
-
-  document.body.style.setProperty('--logo-text-color', logoTextColor || '#d6d6d6');
-  document.body.style.setProperty('--logo-font-family', logoFontFamily || 'Roboto');
-
-  document.body.style.setProperty('--modal-background-color', modalBackgroundColor || '#2b2b2b');
-  document.body.style.setProperty('--modal-border-color', modalBorderColor || '#2b2b2b')
-  document.body.style.setProperty('--modal-border-width', modalBorderWidth || '0');
-  document.body.style.setProperty('--modal-border-radius', modalBorderRadius || '0'); 
-  document.body.style.setProperty('--modal-font-family', modalFontFamily || 'Roboto');
-  document.body.style.setProperty('--modal-text-color', modalTextColor || '#d6d6d6');
-
-  document.body.style.setProperty('--info-background-color', infoBackgroundColor || '#2b2b2b');
-  document.body.style.setProperty('--info-border-color', infoBorderColor || '#2b2b2b');
-  document.body.style.setProperty('--info-border-width', infoBorderWidth || '0');
-  document.body.style.setProperty('--info-border-radius', infoBorderRadius || '0');
-  document.body.style.setProperty('--info-font-family', infoFontFamily || 'Roboto');
-  document.body.style.setProperty('--info-text-color', infoTextColor || '#d6d6d6');
-
-  document.body.style.setProperty('--input-background-color', inputBackgroundColor || '#f6f8fc');
-  document.body.style.setProperty('--input-border-color', inputBorderColor || '#2b2b2b');
-  document.body.style.setProperty('--input-border-width', inputBorderWidth || '0');
-  document.body.style.setProperty('--input-border-radius', inputBorderRadius || '0')
-  document.body.style.setProperty('--input-font-family', inputFontFamily || 'Roboto');
-  document.body.style.setProperty('--input-text-color', inputTextColor || '#000000');
-
-  document.body.style.setProperty('--table-font-family', tableFontFamily || 'Roboto');
-  document.body.style.setProperty('--table-text-color', tableTextColor || '#d6d6d6');
-
-  document.body.style.setProperty('--tile-border-color', tileBorderColor || 'none');
-  document.body.style.setProperty('--tile-border-width', tileBorderWidth || '0');
-  document.body.style.setProperty('--tile-border-radius', tileBorderRadius || '0');
-  document.body.style.setProperty('--tile-color-incorrect', tileColorIncorrect || '#c5000f');
-  document.body.style.setProperty('--tile-color-correct', tileColorCorrect || '#28dd50');
-  document.body.style.setProperty('--tile-color-partial', tileColorPartial || '#ffc409');
-  document.body.style.setProperty('--tile-color-default', tileColorDefault || '#f6f8fc');
-  document.body.style.setProperty('--tile-font-family', tileFontFamily || 'Roboto');
-  document.body.style.setProperty('--tile-text-color-correct', tileTextCorrect || '#000000');
-  document.body.style.setProperty('--tile-text-color-incorrect', tileTextInCorrect || '#000000');
-  document.body.style.setProperty('--tile-text-color-partial', tileTextPartial || '#000000');
-  document.body.style.setProperty('--tile-text-color-default', tileTextDefault || '#000000');
-
-  document.body.style.setProperty('--yesterday-background-color', yesterdayBackgroundColor || 'transparent');
-  document.body.style.setProperty('--yesterday-border-color', yesterdayBorderColor || 'transparent');
-  document.body.style.setProperty('--yesterday-border-width', yesterdayBorderWidth || '0');
-  document.body.style.setProperty('--yesterday-border-radius', yesterdayBorderRadius || '0');
-  document.body.style.setProperty('--yesterday-font-family', yesterdayFontFamily || 'Roboto');
-  document.body.style.setProperty('--yesterday-text-color', yesterdayTextColor || '#d6d6d6');
-  document.body.style.setProperty('--yesterday-item-font-family', yesterdayItemFontFamily || 'Roboto');
-  document.body.style.setProperty('--yesterday-item-text-color', yesterdayItemTextColor || '#d6d6d6');  
-
-  document.body.style.setProperty('--key-background-color', keyBackgroundColor || '#3d3d3d');
-  document.body.style.setProperty('--key-border-color', keyBorderColor || '#2b2b2b');
-  document.body.style.setProperty('--key-border-width', keyBorderWidth || '0.3rem');
-  document.body.style.setProperty('--key-border-radius', keyBorderRadius || '0.9rem');
-  document.body.style.setProperty('--key-font-family', keyFontFamily || 'Roboto');
-  document.body.style.setProperty('--key-text-color', keyTextColor || '#d6d6d6');
-
-  document.body.style.setProperty('--atlas-background-color', atlasBackgroundColor || '#2b2b2b');
-  document.body.style.setProperty('--atlas-border-color', atlasBorderColor || '#2b2b2b');
-  document.body.style.setProperty('--atlas-border-width', atlasBorderWidth || '0');
-  document.body.style.setProperty('--atlas-border-radius', atlasBorderRadius || '0');
-  document.body.style.setProperty('--atlas-font-family', atlasFontFamily || 'Roboto');
-  document.body.style.setProperty('--atlas-text-color', atlasTextColor || '#d6d6d6');
-
-  document.body.style.setProperty('--logo-text-color', footerTextColor || '#d6d6d6');
-  document.body.style.setProperty('--logo-font-family', footerFontFamily || 'Roboto');
-
   return (
     <IonPage style={{backgroundImage: `url(${background})`}}>
-        <IonContent 
-          style={{ 
-            '--background': 'transparent',
-            }}>
+        <IonContent style={{'--background': 'transparent'}}>
             <Header />
             <GameInfo />
             <GuessInput />

@@ -18,6 +18,8 @@ import { RootState } from '../../universal/store';
 
 import { ClueItem } from '../ClueItem';
 
+import { Styled } from '../Styled';
+
 import styles from './GameInfo.module.css';
 
 export const GameInfo: React.FC = () => {
@@ -33,17 +35,7 @@ export const GameInfo: React.FC = () => {
 
   return (
       <IonRow className="ion-justify-content-center">
-        <IonCard 
-          className="ion-padding ion-no-margin"
-          style={{
-            minWidth: '25rem',
-            borderRadius: 'var(--info-border-radius)',
-            borderWidth: 'var(--info-border-width)',
-            borderStyle: 'solid',
-            marginBottom: '0.5rem',
-            borderColor: 'var(--info-border-color)',
-            backgroundColor: 'var(--info-background-color)',
-          }}>
+        <Styled name='info'>
           <IonCardHeader>
             <IonCardTitle 
               className="instruction-header"
@@ -67,6 +59,7 @@ export const GameInfo: React.FC = () => {
             style={{
               fontFamily: 'var(--info-font-family)',
               color: 'var(--info-text-color)',
+              minHeight: '5rem'
             }}>
             { tries > 1 &&
               <IonRow>
@@ -76,7 +69,7 @@ export const GameInfo: React.FC = () => {
               </IonRow>
             }
           </IonCardContent>
-        </IonCard>
+        </Styled>
       </IonRow>
   );
 };

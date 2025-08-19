@@ -17,14 +17,12 @@
 .footerPrivacy {
   padding: 0.5rem;
   font-size: 0.8rem;
-  font-family: var(--logo-font-family);
-  color: var(--logo-text-color);
   text-shadow: 1px 1px 2px rgba(0,0,0.5);
 }
 
 .footerPrivacyLink {
-  font-family: var(--logo-font-family);
-  color: var(--logo-text-color);
+  font-family: var(--about-font-family);
+  color: var(--about-text-color);
   text-shadow: 1px 1px 2px rgba(0,0,0.5);
   text-decoration: none;
 }

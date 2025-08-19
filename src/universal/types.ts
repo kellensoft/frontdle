@@ -38,3 +38,26 @@ export interface ClueType {
   name: string;
   description: string;
 }
+
+export interface SectionStyle {
+  padding?: string;
+  margin?: string;
+  textAlign?: 'left' | 'center' | 'right' | 'justify';
+  backgroundColor?: string;
+  backgroundImage?: string;
+  backgroundSize?: 'cover' | 'contain' | 'auto';
+  backgroundRepeat?: 'no-repeat' | 'repeat' | 'repeat-x' | 'repeat-y';
+  backgroundPosition?: string;
+  borderColor?: string;
+  borderWidth?: string;
+  borderRadius?: string;
+  boxShadow?: string;
+  fontFamily?: string;
+  fontSize?: string;
+  fontWeight?: string;
+  textColor?: string;
+  decorationTopImage?: string;
+  decorationTopHeight?: string;
+  decorationBottomImage?: string;
+  decorationBottomHeight?: string;
+}
